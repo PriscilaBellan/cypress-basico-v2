@@ -21,6 +21,9 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
   it('preenche com texto longo e envia o formulário', function(){
     const longText = 'Nesse pull request, a compilação final do programa corrigiu o bug do nosso servidor de DNS.'
+    
+    cy.clock()
+
     cy.get('#firstName').type('Priscila')
     cy.get('#lastName').type('Bellan')
     cy.get('#email').type('priscilasantosbellan@gmail.com')
@@ -28,9 +31,15 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('button[type="submit"]').click()
 
     cy.get('.success').should('be.visible')
+
+    cy.tick(3000)
+
+    cy.get('.success').should('not.be.visible')
   })
 
   it('exibe mensagem de erro ao submeter o formulário com um email com formatação', function(){
+    cy.clock()
+
     cy.get('#firstName').type('Priscila')
     cy.get('#lastName').type('Bellan')
     cy.get('#email').type('priscilasantosbellan@gmail,com')
@@ -38,6 +47,10 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('button[type="submit"]').click()
 
     cy.get('.error').should('be.visible')
+
+    cy.tick(3000)
+
+    cy.get('.error').should('not.be.visible')
   })
 
   it('campo telefone continua vazio quando preenchido com valor não-numérico', function(){
@@ -45,6 +58,8 @@ describe('Central de Atendimento ao Cliente TAT', function() {
   })
 
   it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', function(){
+    cy.clock()
+
     cy.get('#firstName').type('Priscila')
     cy.get('#lastName').type('Bellan')
     cy.get('#email').type('priscilasantosbellan@gmail.com')
@@ -53,6 +68,10 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     cy.get('button[type="submit"]').click()
 
     cy.get('.error').should('be.visible')
+
+    cy.tick(3000)
+
+    cy.get('.error').should('not.be.visible')
   })
 
   it('preenche e limpa os campos nome, sobrenome, email e telefone', function(){
@@ -79,15 +98,27 @@ describe('Central de Atendimento ao Cliente TAT', function() {
   })
 
   it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function(){
+    cy.clock()
+
     cy.get('button[type="submit"]').click()
 
     cy.get('.error').should('be.visible')
+
+    cy.tick(3000)
+
+    cy.get('.error').should('not.be.visible')
   })
 
   it('envia o formuário com sucesso usando um comando customizado', function(){
+    cy.clock()
+
     cy.fillMandatoryFieldsAndSubmit()
 
     cy.get('.success').should('be.visible')
+
+    cy.tick(3000)
+
+    cy.get('.success').should('not.be.visible')
   })
 
   it('envia o formuário com sucesso usando a funcionalidade contains', function(){

@@ -6,11 +6,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14 # but you can do 12-16
       # Install NPM dependencies, cache them correctly!
       # and run all Cypress tests
-      with:
-          build: npm i -D cypress
-          command-prefix: yarn
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v2.3.6
+        with:
+          build: npm run build
+          start: npm start
         
